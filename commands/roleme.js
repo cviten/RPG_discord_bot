@@ -3,3 +3,8 @@ exports.run = (client, message, args) => {
   let member = message.member;
   member.addRole(role).catch(console.error);
 }
+
+exports.help = {
+  name: "roleme",
+  desc: "Adds role to you"
+}

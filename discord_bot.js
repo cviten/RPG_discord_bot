@@ -26,29 +26,13 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-  //let prefix = '!';
   if (!message.content.startsWith(client.config.prefix) || message.author.bot) return;
 
-  if (message.content.startsWith(client.config.prefix + "hello")) {
-    message.reply('Hello!')
-  } else
-  // Deprecated
-  if (message.content.startsWith(client.config.prefix + "add")) {
-    const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-    let cmdFunction = require(`./commands/${args[0]}.js`);
-    let cmdName = args[0];
-    let cmd = {name: cmdName, func: cmdFunction}
-    cmdList.push(cmd);
-
-  } else {
-    const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-
-    const cmd = client.commands.get(command);
-    if (cmd != undefined) {
-      cmd.run(client, message, args);
-    }
+  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+  const cmd = client.commands.get(command);
+  if (cmd != undefined) {
+    cmd.run(client, message, args);
   }
 
 

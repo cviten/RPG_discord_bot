@@ -6,7 +6,11 @@ exports.run = (client, message, args) => {
   message.reply(`The command ${args[0]} has been reloaded`);
 };
 
+exports.config = {
+  type: "System"
+};
+
 exports.help = {
   name: "reload",
   desc: "Reloads the command"
-}
+};

@@ -31,7 +31,7 @@ client.on('message', message => {
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   const cmd = client.commands.get(command);
-  if (cmd != undefined) {
+  if (cmd && (cmd.config.type != "System" || message.author.id == client.config.ownerid)) {
     cmd.run(client, message, args);
   }
 

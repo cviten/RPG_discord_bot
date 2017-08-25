@@ -1,5 +1,6 @@
 exports.run = (client, message, args) => {
-  message.channel.send("Test");
+  const classes = require('../rpg/classes.json');
+  console.log(classes[args[0]]);
 }
 
 exports.config = {
@@ -8,5 +9,5 @@ exports.config = {
 
 exports.help = {
   name: "test",
-  desc: "Simple test message"
+  desc: "Create a new character"
 }

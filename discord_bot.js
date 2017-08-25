@@ -1,9 +1,12 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
+const PersistentCollection = require('djs-collection-persistent');
 
 client.config = require("./config.json");
 
+
+client.players = new PersistentCollection({name: "Players"});
 //Changing prefix from code
 
 //const fs = require('fs');
@@ -39,10 +42,10 @@ client.on('message', message => {
 });
 
 client.on('guildMemberAdd', member => {
-  const guild = member.guild;
-  let role = guild.roles.find("name", "test_role");
+  //const guild = member.guild;
+  //let role = guild.roles.find("name", "test_role");
   //let member = message.member;
-  member.addRole(role).catch(console.error);
+  //member.addRole(role).catch(console.error);
 } )
 
 client.login(client.config.token);

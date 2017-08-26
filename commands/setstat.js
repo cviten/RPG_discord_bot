@@ -1,6 +1,7 @@
 exports.run = (client, message, args) => {
   let member = message.mentions.members.first();
   if (!member){
+    console.log("Not a member");
     return
   };
   let player = client.players.get(member.id);
@@ -14,7 +15,10 @@ exports.run = (client, message, args) => {
     return;
   }
   console.log("Player has that stat");
-  player[args[1]] = args[2];
+  player.stats[args[1]] = args[2];
+  console.log(player);
+  console.log(player.stats[args[1]]);
+  console.log(args[2]);
   client.players.set(member.id, player);
 }
 

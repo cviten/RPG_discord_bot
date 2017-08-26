@@ -14,11 +14,7 @@ exports.run = (client, message, args) => {
     message.reply("We don't have this stat");
     return;
   }
-  console.log("Player has that stat");
   player.stats[args[1]] = args[2];
-  console.log(player);
-  console.log(player.stats[args[1]]);
-  console.log(args[2]);
   client.players.set(member.id, player);
 }
 

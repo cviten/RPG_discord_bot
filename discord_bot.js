@@ -7,11 +7,6 @@ client.config = require("./config.json");
 
 
 client.players = new PersistentCollection({name: "Players"});
-//Changing prefix from code
-
-//const fs = require('fs');
-//config.prefix = newPrefix;
-//fs.writeFile("./config.json", JSON.stringify(config), (err) => console.error);
 
 client.commands = new Discord.Collection();
 
@@ -34,6 +29,7 @@ client.on('message', message => {
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   const cmd = client.commands.get(command);
+
   if (cmd && (cmd.config.type != "System" || message.author.id == client.config.ownerid)) {
     cmd.run(client, message, args);
   }

@@ -1,4 +1,9 @@
 # Dev tools
 package.json
-
 node_modules/
+
+# My ids
+config.json
+
+# Items
+data/

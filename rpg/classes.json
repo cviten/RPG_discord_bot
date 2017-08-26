@@ -1,0 +1,10 @@
+{
+  "Aclass" :{
+    "Strength": "A",
+    "Endurance": "B",
+    "Agility": "C",
+    "Luck": "D",
+    "Mana": "E",
+    "NoblePhantasm": "EX"
+  }
+}

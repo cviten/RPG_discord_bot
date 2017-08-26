@@ -1,10 +1,13 @@
 exports.run = (client, message, args) => {
-  console.log(client.players.delete(message.author.id));
+  if (client.players.get(message.author.id)){
+    client.players.delete(message.author.id);
+  }
   console.log("Deleted");
+  message.channel.send(`${message.author} was deleted`);
 }
 
 exports.config = {
-  type: "Test"
+  type: "RPG_Admin"
 };
 
 exports.help = {

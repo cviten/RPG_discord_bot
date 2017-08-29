@@ -1,6 +1,6 @@
 exports.run = (client, message, args) => {
   let player = client.players.get(message.author.id);
-  if(client.IsPlayer(player)) {
+  if (client.IsPlayer(message, player)) {
     const embed = {
       "title": `Class: ${player.class}`,
       "author": {
@@ -12,20 +12,26 @@ exports.run = (client, message, args) => {
       },
       "fields": [
         {
-          "name": "Stats",
-          "value": `Strength: ${player.stats.Strength}\nEndurance: ${player.stats.Endurance}\nAgility: ${player.stats.Agility}\nLuck: ${player.stats.Luck}\nMana: ${player.stats.Mana}\nNoble Phantasm: ${player.stats.NoblePhantasm}`
+          "name": "HP",
+          "value": `${player.currHP}/${player.maxHP}`,
+          "inline": true
+        },
+        {
+          "name": "MP",
+          "value": `${player.currMP}/${player.maxMP}`,
+          "inline": true
         }
       ]
     }
     message.channel.send({embed});
-  };
-}
+  }
+};
 
 exports.config = {
   type: "RPG_Main"
 };
 
 exports.help = {
-  name: "showchar",
-  desc: "Shows the charcter in the console"
-}
+  name: "status",
+  desc: "Status of the player"
+};

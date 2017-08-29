@@ -10,11 +10,12 @@ exports.run = (client, message, args) => {
     return
   };
   console.log(args[1]);
-  if (!(player.hasOwnProperty(args[1]))) {
+  if (!(player.stats.hasOwnProperty(args[1]))) {
     message.reply("We don't have this stat");
     return;
   }
   player.stats[args[1]] = args[2];
+  if (args[1] == "Endurance") { player.maxHP = client.base.HP * client.statNum(args[2])};
   client.players.set(member.id, player);
 }
 

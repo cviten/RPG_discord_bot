@@ -7,7 +7,7 @@ exports.run = (client, message, args) => {
 }
 
 exports.config = {
-  type: "RPG_Admin"
+  type: "RPG_Main"
 };
 
 exports.help = {

@@ -6,5 +6,13 @@
     "Luck": "D",
     "Mana": "E",
     "NoblePhantasm": "EX"
+  },
+  "Master": {
+    "Strength": "A",
+    "Endurance": "B",
+    "Agility": "C",
+    "Luck": "D",
+    "Mana": "E",
+    "CommandSeals": 10
   }
 }

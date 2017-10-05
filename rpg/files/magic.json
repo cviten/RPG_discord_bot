@@ -1,0 +1,62 @@
+{
+	"skills": {
+		"effects": {
+			"Harden" : {
+				"stat" : "Def",
+				"mult" : 1,
+				"pow" : 5,
+				"dur" : 10,
+				"self" : true
+			},
+			"Sabotage" : {
+				"stat" : "Atk",
+				"mult" : 1,
+				"pow" : 5,
+				"dur" : 10,
+				"self" : false
+			}
+		},
+		"dmg" : {
+			"Miracle" : {
+				"mult" : 5,
+				"pow" : 20,
+				"self" : false
+			},
+			"Blast" : {
+				"mult" : 3,
+				"pow" : 20,
+				"self" : false
+			}
+		}
+	},
+	"spells": {
+		"effects": {
+			"Morph" : {
+				"stat" : "Def",
+				"mult" : 1,
+				"pow" : 5,
+				"dur" : 10,
+				"self" : false
+			},
+			"Curse" : {
+				"stat" : "Atk",
+				"mult" : 1,
+				"pow" : 5,
+				"dur" : 10,
+				"self" : false
+			}
+		},
+		"dmg" : {
+			"Heal" : {
+				"mult" : 5,
+				"pow" : 20,
+				"self" : false
+			},
+			"Burst" : {
+				"mult" : 3,
+				"pow" : 20,
+				"self" : false
+			}
+		}
+	},
+}

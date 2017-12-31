@@ -1,22 +1,16 @@
-exports.run = (client, message, args) => {
+exports.run = (rpg, message, args) => {
   let member = message.mentions.members.first();
-  if (!member){
-    console.log("Not a member");
+  if (!member) {
+    message.channel.send("Please choose somebody");
     return
-  };
-  let player = client.players.get(member.id);
-  if (!player){
-    message.channel.send(`${member} is not the player`);
-    return
-  };
-  console.log(args[1]);
-  if (!(player.stats.hasOwnProperty(args[1]))) {
-    message.reply("We don't have this stat");
-    return;
   }
-  player.stats[args[1]] = args[2];
-  if (args[1] == "Endurance") { player.maxHP = client.base.HP * client.statNum(args[2])};
-  client.players.set(member.id, player);
+  let answer = rpg.changeStat(member.id,args[1],args[2])
+  if (answer.success) {
+    console.log(member.user.username + answer.message);
+    message.channel.send(member.user.username + answer.message);
+  } else {
+    message.channel.send(member.user.username + answer.message);
+  }
 }
 
 exports.config = {

@@ -1,7 +1,6 @@
 const PersistentCollection = require('djs-collection-persistent');
 const fs = require('fs');
 
-//client = {};
 rpg = {};
 
 rpg.start = (Discord) => {
@@ -10,6 +9,7 @@ rpg.start = (Discord) => {
   rpg.base = require("./files/base.json");
   rpg.arena = new Discord.Collection();
   rpg.classes = require('./files/classes.json');
+  //rpg.magic = require('./files/magic.json');
 
   fs.readdir("./rpg/commands/", (err, files) => {
     if (err) return console.error(err);
@@ -26,6 +26,8 @@ rpg.decorator = (message, command, args) => {
     command.run(rpg, message, args)
   }
 }
+
+//Delete later
 
 rpg.IsPlayer = (player) => {
   if (player){
@@ -50,6 +52,8 @@ rpg.InArena = (message, id) => {
   };
   return true;
 };
+
+//--------------
 
 rpg.statNum = (s) => {
   switch (s.toUpperCase()) {
@@ -147,11 +151,11 @@ rpg.ShowCharacter = (playerID, author) => {
       embed = {
         "title": `Class: ${player.class}`,
         "author": {
-          "name": message.author.username
+          "name": author.username
         },
         "color": 0x00AE86,
         "thumbnail": {
-          "url": message.author.avatarURL
+          "url": author.avatarURL
         },
         "fields": [
           {
@@ -168,7 +172,7 @@ rpg.ShowCharacter = (playerID, author) => {
         },
         "color": 0x00AE86,
         "thumbnail": {
-          "url": message.author.avatarURL
+          "url": author.avatarURL
         },
         "fields": [
           {
@@ -214,7 +218,7 @@ rpg.PlayerStatus = (playerID, author) => {
   } else {
     return {success : false, message : "is not a player",};
   }
-  if (client.IsPlayer(message, player)) {
+  if (rpg.IsPlayer(message, player)) {
     const embed = {
       "title": `Class: ${player.class}`,
       "author": {
@@ -243,25 +247,47 @@ rpg.PlayerStatus = (playerID, author) => {
 
 //rpg.effect = (stat, )
 
-rpg.Attack = (playerID, targetID) => { //Not completed
-  let player = rpg.arena.get(playerID);
-  let target = rpg.arena.get(targetID);
+rpg.Attack = (playerID, targetID) => {
+  let player = rpg.players.get(playerID);
+  let target = rpg.players.get(targetID);
   let damage = 0;
-  let msg = "";
+  let msg = "Attack!";
   if (player && target) {
-    if (Math.random() < (client.base.acc + (client.statNum(player.stats.Luck) - 1 ) * 5)) {
-      damage = client.statNum(player.stats.Agility) * client.statNum(player.stats.Strength) * client.base.damage;
-      if (Math.random() < client.base.crit + client.statNum(player.stats.Luck) - 1) {
+    if (Math.random() < ((rpg.base.acc + (rpg.statNum(player.stats.Luck) - 1 ) * 5)) / 100) {
+      damage = rpg.statNum(player.stats.Agility) * rpg.statNum(player.stats.Strength) * rpg.base.damage;
+      if (Math.random() < (rpg.base.crit + rpg.statNum(player.stats.Luck) - 1) / 100) {
         damage *= 2.5;
         msg = msg + "\nCritical Hit";
       };
-      msg = msg + "Hits " + damage + " HP"
+      msg = msg + "\nHits " + damage + " HP"
       target.currHP -= damage;
-      rpg.arena.set(targetID, target);
+      rpg.players.set(targetID, target);
       return {success : true, message : msg};
     } else {
-    return {success : true, message : "Miss"};
+      return {success : true, message : "Miss"};
     }
+  } else {
+    return {success : false, message : "Something wrong"};
   }
 };
+
+rpg.Magic = (playerID, type, name, targetID) => {
+  let player = rpg.players.get(playerID);
+  let spell = rpg.magic[type][name];
+};
+
+rpg.changeStat = (playerID, stat, value) => {
+  let player = rpg.players.get(playerID);
+  if (!player) {
+    return {success : false, message : " is not the player"};
+  } else if (!(player.stats.hasOwnProperty(stat))) {
+    return {success : false, message : " doesn't have this stat"};
+  } else {
+    player.stats[stat] = value;
+    if (stat == "Endurance") { player.maxHP = rpg.base.HP * rpg.statNum(value)};
+    if (stat == "Mana") { player.maxHP = rpg.base.MP * rpg.statNum(value)};
+    rpg.players.set(playerID, player);
+    return {success : true, message :  `'s ${stat} was changed on ${value}`};
+  }
+}
 module.exports = rpg;

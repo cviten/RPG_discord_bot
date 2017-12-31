@@ -19,7 +19,7 @@ const rpg = require('./rpg/main.js');
 
 rpg.start(Discord);
 
-client.runCommand = (decorator, message, cmd, args) => { decorator(message, cmd, args); };
+runCommand = (decorator, message, cmd, args) => { decorator(message, cmd, args); };
 
 var SystemDecorator = (message, command, args) => {
   if (command.config.type == "Normal" || (command.config.type == "System" && message.author.id == client.config.ownerid)) {
@@ -39,8 +39,8 @@ client.on('message', message => {
   const cmd = client.commands.get(command) || rpg.commands.get(command);
 
   if (cmd) {
-    client.runCommand(SystemDecorator, message, cmd, args);
-    client.runCommand(rpg.decorator, message, cmd, args);
+    runCommand(SystemDecorator, message, cmd, args);
+    runCommand(rpg.decorator, message, cmd, args);
   }
 
 });
